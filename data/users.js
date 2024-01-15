@@ -20,6 +20,13 @@ const users = [
     username: "clarkcru3",
     email: "clarkcru3@scholar.com",
   },
+  {
+    userId: 4,
+    name: "Darla Daniels",
+    role: "student",
+    username: "darladan4",
+    email: "darladan4@scholar.com",
+  },
 ];
 
 
