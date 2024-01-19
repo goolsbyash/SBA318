@@ -35,4 +35,32 @@ router.get("/:role/:id", (req, res) => {
   } else res.json({ error: "Invalid User" });
 });
 
+router.post("/add", (req, res) => {
+  if (req.body.userId && req.body.course && req.body.grade) {
+    const newGrade = {
+      userId: req.body.userId,
+      course: req.body.course,
+      grade: req.body.grade,
+    };
+    grades.push(newGrade);
+    res.json({ 'Grade Submitted Successfully': newGrade})
+  } else res.json({ error: "Insufficient Data" });
+});
+
+router.delete("/delete", (req, res) => {
+  if (
+    grades.find(
+      (g) => g.userId == req.body.userId && g.course == req.body.course
+    )
+  ) {
+    const deleteGrade = {
+      userId: req.body.userId,
+      course: req.body.course,
+      grade: req.body.grade,
+    };
+    grades.splice(grades.indexOf(deleteGrade), 1);
+    res.json({ "Grade Deleted Successfully": deleteGrade, "Other Grades": grades });
+  } else res.status(404).send({error: "Grade Not Found"});
+});
+
 module.exports = router;
