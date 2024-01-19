@@ -3,15 +3,35 @@ title Dashboard
 
 body 
     div 
-        h3 Hello #{userName}
-        img(src=profilePic, alt=`profile picture for #{userName}`)
+        h3 Hello, #{userName}!
+        img(src=profilePic, alt=`profile picture for ${userName}`)
 
     div 
         h4 Teacher Alerts
-        section #{content}
-
+        ul 
+            li #{content}
+            li #{content}
+            li #{content}
+    br
     div 
-    //-   form to add/delete grades 
-
+        //-   form to add/delete grades 
+        form(action="/api/grades/add", method="POST") 
+            label(for="userId") User ID:
+                input(type="number", name="userId")
+            label(for="course") Course: 
+                input(type="text", name="course")
+            label(for="grade") Grade:
+                input(type="number", name="grade")
+                input(type="submit", value="Add Grade")
+        hr
+        form(action="/api/grades/delete", method="POST") 
+            input(type="hidden", name="_method", value="DELETE")
+            label(for="userId") User ID:
+                input(type="number", name="userId")
+            label(for="course") Course: 
+                input(type="text", name="course")
+                input(type="submit", value="Delete Grade")
+    br
     div 
-        p #{result}
+        a(href= gradeView) 
+            button View Grades
