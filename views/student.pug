@@ -4,7 +4,7 @@ title Dashboard
 body 
     div 
         h3 Hello, #{userName}!
-        img(src=profilePic, alt=`profile picture for user`)
+        img(src=profilePic, alt=`profile picture for ${userName}`)
 
     div 
         h4 Student Alerts
@@ -14,5 +14,5 @@ body
             li #{content} 
 
     div 
-        a(href= urlTest) 
+        a(href= gradeView) 
             button View Grades
