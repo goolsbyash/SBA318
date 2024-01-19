@@ -11,13 +11,24 @@ const { log } = require("console");
 router
   .route("/")
   .get((req, res) => {
+    // const key = req.bod
     res.send(mainPage());
   })
   .post((req, res) => {
-    if (users.find((u) => u.username == req.body.username)) {
-      let pendingUser = users.find((u) => u.username == req.body.username)
-      res.redirect(`/api/profile/${pendingUser.role}/${pendingUser.userId}`)
-    }
+    if (
+      users.find(
+        (u) =>
+          u.username == req.body.username && u.password == req.body.password
+      )
+    ) {
+      let pendingUser = users.find((u) => u.username == req.body.username);
+      res.redirect(`/api/profile/${pendingUser.role}/${pendingUser.userId}`);
+    } else   // return to "sign in page if incorrect user/pw combo"
+      res
+        .status(404)
+        .send(
+          '<p>Incorrect username/password</p> <br> <a href="/api/users"> Try again! </a>'
+        );
   });
 
 module.exports = router;
