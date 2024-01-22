@@ -6,6 +6,7 @@ const usersData = require("./data/users");
 const users = require("./routes/users");
 const profile = require("./routes/profiles");
 const grades = require("./routes/grades");
+const morgan = require("morgan");
 
 // const error = require("./utilities/error");
 
@@ -14,12 +15,21 @@ const PORT = 3000;
 
 app.set("view engine", "pug");
 
+app.use(express.json());
+
+
 // Parsing Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
+// Static expression to add CSS file
+app.use("/api/users", express.static("./styles"));
+
+app.use(morgan("dev"));
+
 // Method Override so HTML form may support DELETE request for /grades/delete
 //* Reference: https://medium.com/@mohammdowais/sending-put-and-delete-requests-through-html-f9ffe9e1b6cb
+
 app.use(
   methodOverride(function (req, res) {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
@@ -32,16 +42,9 @@ app.use(
   })
 );
 
-app.use(express.json());
-// Static expression to add CSS file
-app.use(express.static("./styles"));
 
-// app.use("/api/grades", function (req, res, next) {
-//   let key1 = req.query["username"];
-//   let key2 = req.query["password"];
+// Custom Middleware
 
-//   next();
-// });
 
 // Routes
 app.use("/api/users", users);
