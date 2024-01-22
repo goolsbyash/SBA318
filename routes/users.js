@@ -6,7 +6,7 @@ const pug = require("pug");
 const router = express.Router();
 const mainPage = pug.compileFile("./views/main.pug");
 const users = require("../data/users");
-const { log } = require("console");
+// const { log } = require("console");
 
 router
   .route("/")
