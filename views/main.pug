@@ -1,17 +1,22 @@
 <!DOCTYPE html> 
+link(rel="stylesheet", href='style.css')
 title Chalkboard Grade Portal 
 
 body 
     div 
-        h4 Welcome! Sign in: 
+        div 
+            h2 Welcome! 
+            h4 Sign in: 
 
-    div 
-        //- form to enter username/password
-        form(action="/api/users", method="POST") 
-            label(for="username") Username:
-                input(type="text", name="username")
-                label(for="password") Password: 
-                input(type="password", name="password")
-                input(type="submit", value="Sign In!")
+        div
+            //- form to enter username/password
+            form#inputForm(action="/api/users", method="POST") 
+                label(for="username") Username:
+                    input(type="text", name="username" required)
+                    br
+                    label(for="password") Password: 
+                    input(type="password", name="password" required)
+                    br
+                    input#submit(type="submit", value="Sign In!")
 
     
