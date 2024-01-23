@@ -38,12 +38,16 @@ router.get("/:role/:id", (req, res) => {
 router.post("/add", (req, res) => {
   if (req.body.userId && req.body.course && req.body.grade) {
     const newGrade = {
-      userId: req.body.userId,
+      userId: Number (req.body.userId),
       course: req.body.course,
-      grade: req.body.grade,
+      grade: Number (req.body.grade),
     };
+    // Check if grade does not already exist before push
+    if (grades.find((g) => g !== newGrade)) {
+      console.log('proceed');
+    }
     grades.push(newGrade);
-    res.json({ 'Grade Submitted Successfully': newGrade})
+    res.json({ 'Grade Submitted Successfully': newGrade, 'Remaining Grades': grades})
   } else res.json({ error: "Insufficient Data" });
 });
 
@@ -59,7 +63,7 @@ router.delete("/delete", (req, res) => {
       grade: req.body.grade,
     };
     grades.splice(grades.indexOf(deleteGrade), 1);
-    res.json({ "Grade Deleted Successfully": deleteGrade, "Other Grades": grades });
+    res.json({ "Grade Deleted Successfully": deleteGrade, "Remaining Grades": grades });
   } else res.status(404).send({error: "Grade Not Found"});
 });
 
