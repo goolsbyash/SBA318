@@ -17,7 +17,6 @@ app.set("view engine", "pug");
 
 app.use(express.json());
 
-
 // Parsing Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
@@ -42,9 +41,30 @@ app.use(
   })
 );
 
-
 // Custom Middleware
+// Middleware to check that id matches valid teacher/student
+app.use((req, res, next) => {
+  if (req.url.includes("/api/profile")) {
+    const urlPieces = req.url.split("/");
+    const checkId = urlPieces.pop();
+    console.log(checkId);
+    if (
+      req.url.includes("teacher") &&
+      usersData.find((u) => u.userId == checkId && u.role == "teacher")
+    ) {
+      console.log("Going to teacher profile...");
+      next();
+    } else if ((req.url.includes("student")) && usersData.find((u) => u.userId == checkId && u.role == "student")) {
+      console.log("Going to student profile...");
+      next();
+    } else {
+      console.log("Invalid Teacher or Student. Redirecting to login page...");
+      res.redirect("/api/users");
+    }
+  }
 
+  next();
+});
 
 // Routes
 app.use("/api/users", users);
