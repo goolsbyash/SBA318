@@ -54,7 +54,10 @@ app.use((req, res, next) => {
     ) {
       console.log("Going to teacher profile...");
       next();
-    } else if ((req.url.includes("student")) && usersData.find((u) => u.userId == checkId && u.role == "student")) {
+    } else if (
+      req.url.includes("student") &&
+      usersData.find((u) => u.userId == checkId && u.role == "student")
+    ) {
       console.log("Going to student profile...");
       next();
     } else {
@@ -62,7 +65,6 @@ app.use((req, res, next) => {
       res.redirect("/api/users");
     }
   }
-
   next();
 });
 
@@ -122,8 +124,14 @@ app.get("/api", (req, res) => {
   });
 });
 
-// Error Handling Middleware
-
+// Custom Error Handling Middleware
+app.use((req, res, next) => {
+  res
+    .status(404)
+    .send(
+      '<h4>Sorry! Resource Not Available</h4><br/><a href="/api/users"> Return to signin page</a>'
+    );
+});
 // Listener
 app.listen(PORT, () => {
   console.log(`-- Server is running & listening on port: ${PORT} --`);
