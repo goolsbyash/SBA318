@@ -74,7 +74,6 @@ app.use("/api/profile", profile);
 app.use("/api/grades", grades);
 
 // Adding some HATEOAS links.
-// Will be replaced by view engine templates
 app.get("/", (req, res) => {
   res.json({
     links: [
@@ -101,11 +100,6 @@ app.get("/api", (req, res) => {
         type: "POST",
       },
       {
-        href: "/api/users",
-        rel: "users",
-        type: "DELETE",
-      },
-      {
         href: "/api/profiles",
         rel: "profiles",
         type: "GET",
@@ -113,12 +107,17 @@ app.get("/api", (req, res) => {
       {
         href: "api/grades",
         rel: "grades",
-        type: "POST",
+        type: "GET",
       },
       {
-        href: "api/grades",
+        href: "api/grades/delete",
         rel: "users",
         type: "DELETE",
+      },
+      {
+        href: "api/grades/add",
+        rel: "users",
+        type: "POST",
       },
     ],
   });
