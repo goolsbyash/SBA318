@@ -21,8 +21,9 @@ router.route("/:role/:id").get((req, res) => {
     res.send(studentProfile(options));
   }
   // Load teacher profile template
-  else if (req.params.role == "teacher") res.send(teacherProfile(options));
-  else res.status(404).send({error: "Invalid User!"});
+  else if (req.params.role == "teacher") {
+    res.send(teacherProfile(options));
+  } else res.status(404).send({error: "Invalid User!"});
 });
 
 module.exports = router;
