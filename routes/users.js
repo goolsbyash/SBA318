@@ -6,12 +6,10 @@ const pug = require("pug");
 const router = express.Router();
 const mainPage = pug.compileFile("./views/main.pug");
 const users = require("../data/users");
-// const { log } = require("console");
 
 router
   .route("/")
   .get((req, res) => {
-    // const key = req.bod
     res.send(mainPage());
   })
   .post((req, res) => {
@@ -23,7 +21,7 @@ router
     ) {
       let pendingUser = users.find((u) => u.username == req.body.username);
       res.redirect(`/api/profile/${pendingUser.role}/${pendingUser.userId}`);
-    } else   // return to "sign in page if incorrect user/pw combo"
+    } else   // return to "sign in" page if incorrect user/pw combo
       res
         .status(404)
         .send(
