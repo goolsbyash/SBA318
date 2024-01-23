@@ -3,7 +3,7 @@ html {
   background-repeat: no-repeat;
   background-size: auto;
   color: #317072;
-  background-color: black;
+  background-color: #ccf3f4;
   font-family: cursive;
 }
 
@@ -31,8 +31,4 @@ h4 {
   width: 250px;
   text-decoration: underline;
   text-align: center;
-}
-
-.inputForm.submit {
-  margin-left: 20px;
 }
