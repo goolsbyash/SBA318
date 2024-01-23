@@ -23,6 +23,8 @@ app.use(bodyParser.json({ extended: true }));
 
 // Static expression to add CSS file
 app.use("/api/users", express.static("./styles"));
+app.use("/api/profile/teacher", express.static("./styles"));
+app.use("/api/profile/student", express.static("./styles"));
 
 app.use(morgan("dev"));
 
